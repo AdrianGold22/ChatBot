@@ -1,0 +1,47 @@
+CREATE DATABASE `chatbot`
+
+CREATE TABLE `Estudiante` (
+	`Cod_E` INT NOT NULL,
+	`nombre` VARCHAR(50) NOT NULL,
+	`numero` VARCHAR(50) NOT NULL,
+	`correo` VARCHAR(50) NOT NULL,
+	`semestre` INT NOT NULL,
+	PRIMARY KEY (`Cod_E`)
+)
+COLLATE='latin1_swedish_ci'
+;
+
+CREATE TABLE `Pregunta` (
+	`Cod_P` INT NOT NULL,
+	`nombre_pregunta` VARCHAR(100) NOT NULL,
+	`respuesta` VARCHAR(100) NOT NULL,
+	`medio_envio` VARCHAR(100) NOT NULL,
+	PRIMARY KEY (`Cod_P`)
+)
+COLLATE='latin1_swedish_ci'
+;
+
+CREATE TABLE `Universidad` (
+	`cod_C` INT NOT NULL,
+	`cod_E` INT NOT NULL,
+	`cod_P` INT NOT NULL,
+	PRIMARY KEY (`cod_C`)
+)
+COLLATE='latin1_swedish_ci'
+;
+
+ALTER TABLE `Universidad`
+	ADD CONSTRAINT `FK_Universidad_estudiante` FOREIGN KEY (`cod_E`) REFERENCES `estudiante` (`Cod_E`),
+	ADD CONSTRAINT `FK_Universidad_pregunta` FOREIGN KEY (`cod_P`) REFERENCES `pregunta` (`Cod_P`);
+
+
+INSERT INTO `chatbot`.`estudiante` (`Cod_E`, `nombre`, `numero`, `correo`, `semestre`) VALUES ('2', 'Carlos Magallanes', '300023457', 'carlos@gmail.com', '4');
+INSERT INTO `chatbot`.`estudiante` (`Cod_E`, `nombre`, `numero`, `correo`, `semestre`) VALUES ('3', 'Miguel Arjona', '300004654', 'miguel@gmail.com', '5');
+INSERT INTO `chatbot`.`estudiante` (`Cod_E`, `nombre`, `numero`, `correo`, `semestre`) VALUES ('4', 'Adrian Pretelt', '3045604654', 'adrian@gmail.com', '6');
+
+INSERT INTO `chatbot`.`pregunta` (`Cod_P`, `nombre_pregunta`, `respuesta`, `medio_envio`) VALUES ('000001', 'hora en que cierra biblioteca', '8:00PM', 'chat');
+INSERT INTO `chatbot`.`pregunta` (`Cod_P`, `nombre_pregunta`, `respuesta`, `medio_envio`) VALUES ('000002', 'link de savio', 'savio.utbvirtual.edu.co', 'chat');
+
+INSERT INTO `chatbot`.`universidad` (`cod_C`, `cod_E`, `cod_P`) VALUES ('1', '2', '1');
+INSERT INTO `chatbot`.`universidad` (`cod_C`, `cod_E`, `cod_P`) VALUES ('2', '4', '2');
+
